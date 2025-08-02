@@ -7,5 +7,5 @@ export const getDistinctProductsByName = async () => {
     } catch (error) {
         console.error("Error fetching distinct products by name:", error);
         throw error;
-    } 
-}
+    }
+};
