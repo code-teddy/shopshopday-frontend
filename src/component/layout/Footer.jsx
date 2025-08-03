@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategories } from "../../store/features/categorySlice";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.category.categories);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
+
   return (
     <footer className='mega-footer'>
       <div className='footer-container'>
@@ -13,15 +23,20 @@ const Footer = () => {
         <div className='footer-section'>
           <h3>Category</h3>
           <ul>
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link
+                  to={`/products/${category.name}`}>
+                  {category.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div className='footer-section'>
           <h3>Contact</h3>
-          <p>Email: info@dcwdshops.com</p>
+          <p>Email: info@buynow.com</p>
           <p>Phone: (123) 456-7890</p>
         </div>
 
@@ -50,7 +65,7 @@ const Footer = () => {
         </div>
 
         <div className='footer-bottom'>
-          <p>&copy; 2025 ShopShopDay. All rights reserved.</p>
+          <p>&copy; 2024 buynow.com. All rights reserved.</p>
         </div>
       </div>
     </footer>

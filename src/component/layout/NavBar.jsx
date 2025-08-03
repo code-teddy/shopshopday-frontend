@@ -9,7 +9,7 @@ const NavBar = () => {
               
 
         <Navbar.Brand to={"/"} as={Link}>
-          <span className='shop-home'>ShopShopBay</span>
+          <span className='shop-home'>buyNow.com</span>
          </Navbar.Brand>
               
 
@@ -18,7 +18,7 @@ const NavBar = () => {
         <Navbar.Collapse>
                   
           <Nav className='me-auto'>
-            <Nav.Link to={"#"} as={Link}>
+            <Nav.Link to={"/products"} as={Link}>
               All Products
             </Nav.Link>
           </Nav>
