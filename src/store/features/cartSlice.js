@@ -7,7 +7,7 @@ export const addToCart = createAsyncThunk(
     const formData = new FormData();
     formData.append("productId", productId);
     formData.append("quantity", quantity);
-    const response = await api.post("/cartItems/item/add", formData);
+    const response = await api.post("/cartItems/item/add", formData);   
     return response.data;
   }
 );
@@ -54,11 +54,17 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCart: (state) => {
+      state.items = [];
+      state.totalAmount = 0;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(addToCart.fulfilled, (state, action) => {
-        state.successMessage = action.payload.message;
+      .addCase(addToCart.fulfilled, (state, action) => { 
+        state.items.push(action.payload.data);
+        state.successMessage = action.payload.message;        
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.errorMessage = action.error.message;
@@ -95,5 +101,7 @@ const cartSlice = createSlice({
       });
   },
 });
+
+export const { clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

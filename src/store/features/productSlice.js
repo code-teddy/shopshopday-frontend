@@ -64,11 +64,9 @@ const productSlice = createSlice({
         state.selectedBrands = state.selectedBrands.filter((b) => b !== brand);
       }
     },
-    setQuantity: (state, action) => { 
+    setQuantity: (state, action) => {
       state.quantity = action.payload;
-    }
-
-   
+    },
   },
 
   extraReducers: (builder) => {

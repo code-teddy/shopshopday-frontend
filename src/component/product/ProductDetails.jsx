@@ -7,20 +7,23 @@ import QuantityUpdater from "../utils/QuantityUpdater";
 import { FaShoppingCart } from "react-icons/fa";
 import { addToCart } from "../../store/features/cartSlice";
 import { toast, ToastContainer } from "react-toastify";
+import StockStatus from "../utils/StockStatus";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const { product, quantity } = useSelector((state) => state.product);
-  const { errorMessage, successMessage } = useSelector((state) => state.cart);
+  const successMessage = useSelector((state) => state.cart.successMessage);
+  const errorMessage = useSelector((state) => state.cart.errorMessage);
+  const productOutOfStock = product?.inventory <= 0;
 
   useEffect(() => {
     dispatch(getProductById(productId));
   }, [dispatch, productId]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     try {
-      dispatch(addToCart({ productId, quantity }));
+      await dispatch(addToCart({ productId, quantity })).unwrap();
       toast.success(successMessage);
     } catch (error) {
       if (errorMessage) {
@@ -60,27 +63,26 @@ const ProductDetails = () => {
               Rating: <span className='rating'>some stars</span>
             </p>
             <p>
-              {" "}
-              {product.inventory > 0 ? (
-                <span className='text-success'>
-                  {product.inventory} in stock
-                </span>
-              ) : (
-                <span className='text-danger'>Out of stock</span>
-              )}
+              <StockStatus inventory={product.inventory} />
             </p>
             <p>Quantity:</p>
             <QuantityUpdater
               quantity={quantity}
               onDecrease={handleDecreaseQuantity}
               onIncrease={handleIncreaseQuantity}
+              disabled={productOutOfStock}
             />
             <div className='d-flex gap-2 mt-3'>
-              <button className='add-to-cart-button' onClick={handleAddToCart}>
+              <button
+                className='add-to-cart-button'
+                onClick={handleAddToCart}
+                disabled={productOutOfStock}>
                 {" "}
                 <FaShoppingCart /> Add to cart
               </button>
-              <button className='buy-now-button'>Buy now</button>
+              <button className='buy-now-button' disabled={productOutOfStock}>
+                Buy now
+              </button>
             </div>
           </div>
         </div>
