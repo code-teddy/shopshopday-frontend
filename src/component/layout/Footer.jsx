@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories } from "../../store/features/categorySlice";
 import { Link } from "react-router-dom";
+import { getAllCategories } from "../../store/features/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -25,10 +25,7 @@ const Footer = () => {
           <ul>
             {categories.map((category) => (
               <li key={category.id}>
-                <Link
-                  to={`/products/${category.name}`}>
-                  {category.name}
-                </Link>
+                <Link to={`/products/category/${category.id}/products`}>{category.name}</Link>
               </li>
             ))}
           </ul>

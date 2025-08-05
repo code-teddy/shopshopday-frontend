@@ -6,14 +6,31 @@ import {
   setSelectedCategory,
   clearFilters,
 } from "../../store/features/searchSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
+  const { categoryId } = useParams();
+  const navigate = useNavigate();
   const categories = useSelector((state) => state.category.categories);
 
   const { searchQuery, selectedCategory } = useSelector(
     (state) => state.search
   );
+
+  useEffect(() => {
+    if (categoryId && categories.length > 0) {
+      const selectedCategory = categories.find(
+        (category) => category.id === parseInt(categoryId, 10)
+      );
+
+      if (selectedCategory) {
+        dispatch(setSelectedCategory(selectedCategory.name));
+      } else {
+        dispatch(setSelectedCategory("all"));
+      }
+    }
+  }, [categoryId, categories, dispatch]);
 
   const handleCategoryChange = (e) => {
     dispatch(setSelectedCategory(e.target.value));
@@ -21,6 +38,7 @@ const SearchBar = () => {
 
   const handleClearFilters = () => {
     dispatch(clearFilters());
+    navigate("/products");
   };
 
   const handleSearchQueryChange = (e) => {

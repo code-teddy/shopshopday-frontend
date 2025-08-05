@@ -11,7 +11,7 @@ const Hero = () => {
       <HeroSlider setCurrentSlide={currentSlide} />
       <div className='hero-content'>
         <h1>
-          Welcome to <span className='text-primary'>Shop Shop Day</span>
+          Welcome to <span className='text-primary'>buyNow</span>.com
         </h1>
         <SearchBar/>
         <div className='home-button-container'>
