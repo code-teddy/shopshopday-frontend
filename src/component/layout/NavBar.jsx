@@ -3,20 +3,17 @@ import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const userId = 2;
   return (
     <Navbar expand='lg' sticky='top' className='nav-bg'>
-     <Container>
-              
-
+      <Container>
         <Navbar.Brand to={"/"} as={Link}>
           <span className='shop-home'>buyNow.com</span>
-         </Navbar.Brand>
-              
+        </Navbar.Brand>
 
         <Navbar.Toggle />
 
         <Navbar.Collapse>
-                  
           <Nav className='me-auto'>
             <Nav.Link to={"/products"} as={Link}>
               All Products
@@ -34,39 +31,28 @@ const NavBar = () => {
               <>
                 <NavDropdown.Item to={"#"} as={Link}>
                   My Account
-                 </NavDropdown.Item>
-                              
-                <NavDropdown.Divider />                              
+                </NavDropdown.Item>
+
+                <NavDropdown.Divider />
 
                 <NavDropdown.Item to={"#"} as={Link}>
                   My Orders
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                              
-                 <NavDropdown.Item to={"#"}>
-                     Logout
-                </NavDropdown.Item>
-                              
 
+                <NavDropdown.Item to={"#"}>Logout</NavDropdown.Item>
               </>
-
+              <NavDropdown.Divider />
               <NavDropdown.Item to={"#"} as={Link}>
                 Login
               </NavDropdown.Item>
-                          
+            </NavDropdown>
 
-               </NavDropdown>
+            <Link to={`/user/${userId}/my-cart`}>cart</Link>
           </Nav>
-                  
-
-
         </Navbar.Collapse>
-              
-
-       </Container>
-          
-
+      </Container>
     </Navbar>
   );
 };

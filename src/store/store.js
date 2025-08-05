@@ -3,6 +3,7 @@ import searchReducer from "../store/features/searchSlice";
 import categoryReducer from "../store/features/categorySlice";
 import productReducer from "../store/features/productSlice";
 import paginationReducer from "../store/features/paginationSlice";
+import cartReducer from "../store/features/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     category: categoryReducer,
     product: productReducer,
     pagination: paginationReducer,
+    cart : cartReducer
   },
 });
