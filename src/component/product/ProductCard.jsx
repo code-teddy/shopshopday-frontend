@@ -22,9 +22,9 @@ const ProductCard = ({ products }) => {
                 {product.name} - {product.description}
               </p>
               <h4 className='price'>${product.price}</h4>
-              <p>
-                <StockStatus inventory={product.inventory} />
-              </p>
+
+              <StockStatus inventory={product.inventory} />
+
               <div className='d-flex gap-2'>
                 <button className='shop-now-button'>Add to cart</button>
               </div>

@@ -20,12 +20,12 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (categoryId && categories.length > 0) {
-      const selectedCategory = categories.find(
+      const seletedCategory = categories.find(
         (category) => category.id === parseInt(categoryId, 10)
       );
 
-      if (selectedCategory) {
-        dispatch(setSelectedCategory(selectedCategory.name));
+      if (seletedCategory) {
+        dispatch(setSelectedCategory(seletedCategory.name));
       } else {
         dispatch(setSelectedCategory("all"));
       }
@@ -56,8 +56,8 @@ const SearchBar = () => {
         onChange={handleCategoryChange}
         className='form-control-sm'>
         <option value='all'>All Category</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.name}>
+        {categories.map((category, index) => (
+          <option key={index} value={category.name}>
             {category.name}
           </option>
         ))}

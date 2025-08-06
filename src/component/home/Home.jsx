@@ -5,7 +5,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductImage from "../utils/ProductImage";
 import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { setTotalItems } from "../../store/features/paginationSlice";
 import { getDistinctProductsByName } from "../../store/features/productSlice";
 import LoadSpinner from "../common/LoadSpinner";
@@ -83,9 +83,9 @@ const Home = () => {
                   {product.name} - {product.description}
                 </p>
                 <h4 className='price'>{product.price}</h4>
-                <p>
-                  <StockStatus inventory={product.inventory} />
-                </p>
+
+                <StockStatus inventory={product.inventory} />
+
                 <Link
                   to={`/products/${product.name}`}
                   className='shop-now-button'>
