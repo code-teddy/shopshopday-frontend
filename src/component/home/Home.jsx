@@ -5,7 +5,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductImage from "../utils/ProductImage";
 import { useSelector, useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { setTotalItems } from "../../store/features/paginationSlice";
 import { getDistinctProductsByName } from "../../store/features/productSlice";
 import LoadSpinner from "../common/LoadSpinner";

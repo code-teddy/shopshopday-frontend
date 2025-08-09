@@ -51,6 +51,10 @@ const NavBar = () => {
               <NavDropdown.Item to={"#"} as={Link}>
                 Login
               </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item to={"/register"} as={Link}>
+                Register
+              </NavDropdown.Item>
             </NavDropdown>
 
             <Link

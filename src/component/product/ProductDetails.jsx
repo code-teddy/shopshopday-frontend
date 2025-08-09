@@ -62,9 +62,9 @@ const ProductDetails = () => {
             <p className='product-name'>
               Rating: <span className='rating'>some stars</span>
             </p>
-            <p>
-              <StockStatus inventory={product.inventory} />
-            </p>
+
+            <StockStatus inventory={product.inventory} />
+
             <p>Quantity:</p>
             <QuantityUpdater
               quantity={quantity}

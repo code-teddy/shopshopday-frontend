@@ -17,6 +17,28 @@ export const addNewProduct = createAsyncThunk(
   }
 );
 
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async ({ productId, updatedProduct }) => {
+    const response = await api.put(
+      `/products/product/${productId}/update`,
+      updatedProduct
+    );
+    return response;
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async (productId) => {
+    const response = await api.delete(`/products/product/${productId}/delete`);
+
+    console.log("The delete response :  1", response.data);
+
+    return response.data;
+  }
+);
+
 export const getAllBrands = createAsyncThunk(
   "product/getAllBrands",
   async () => {
@@ -57,6 +79,7 @@ const initialState = {
   selectedBrands: [],
   quantity: 1,
   errorMessage: null,
+  successMessage: null,
   isLoading: true,
 };
 
@@ -111,6 +134,16 @@ const productSlice = createSlice({
         state.products.push(action.payload);
         state.errorMessage = null;
         state.isLoading = false;
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.product = action.payload.data;
+        state.errorMessage = null;
+        state.isLoading = false;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.products = state.products.filter(
+          (product) => product.id !== action.payload.data
+        );
       });
   },
 });

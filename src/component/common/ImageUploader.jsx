@@ -38,8 +38,7 @@ const ImageUploader = ({ productId }) => {
     }
     if (Array.isArray(images) && images.length > 0) {
       try {
-        const result = await dispatch(
-          uploadImages({ productId, files: images.map((image) => image.file) })
+        const result = await dispatch(uploadImages({ productId, files: images.map((image) => image.file) })
         ).unwrap();
         clearFileInputs();
         toast.success(result.message);

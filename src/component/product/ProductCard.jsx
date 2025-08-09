@@ -3,8 +3,22 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductImage from "../utils/ProductImage";
 import StockStatus from "../utils/StockStatus";
+import { deleteProduct } from "../../store/features/productSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ products }) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = async (productId) => {
+    try {
+      const result = await dispatch(deleteProduct(productId)).unwrap();
+      toast.success(result.message);    
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <main className='row m-2'>
       {products.map((product) => (
@@ -26,6 +40,11 @@ const ProductCard = ({ products }) => {
               <StockStatus inventory={product.inventory} />
 
               <div className='d-flex gap-2'>
+                <Link to={"#"} onClick={() => handleDelete(product.id)}>
+                  delete
+                </Link>
+                <Link to={`/update-product/${product.id}/update`}>edit</Link>
+
                 <button className='shop-now-button'>Add to cart</button>
               </div>
             </Card.Body>

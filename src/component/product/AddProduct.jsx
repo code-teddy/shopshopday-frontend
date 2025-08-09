@@ -79,6 +79,10 @@ const AddProduct = () => {
     setShowNewCategoryInput(false);
   };
 
+  const handlePreviousStep = () => {
+    setActiveStep((prevStep) => Math.max(prevStep - 1, 0));
+  };
+
   return (
     <section className='container mt-5 mb-5'>
       <ToastContainer />
@@ -185,6 +189,11 @@ const AddProduct = () => {
             {activeStep === 1 && (
               <div className='container'>
                 <ImageUploader productId={productId} />
+                <button
+                  className='btn btn-secondary btn-s mt-3'
+                  onClick={handlePreviousStep}>
+                  Previous
+                </button>
               </div>
             )}
           </div>

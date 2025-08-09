@@ -12,6 +12,7 @@ import SideBar from "../common/SideBar";
 import { setInitialSearchQuery } from "../../store/features/searchSlice";
 import { useLocation, useParams } from "react-router-dom";
 import LoadSpinner from "../common/LoadSpinner";
+import { ToastContainer } from "react-toastify";
 
 const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -87,6 +88,7 @@ const Products = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className='d-flex justify-content-center'>
         <div className='col-md-6 mt-2'>
           <div className='search-bar input-group'>
