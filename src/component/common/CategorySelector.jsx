@@ -80,14 +80,3 @@ const CategorySelector = ({
 
 export default CategorySelector;
 
-/*
-
-
-Implement the category selector component following exactly this same thing 
-we did to implement the brand selector.
-
-Take that we have the category slcie already,
- so can just work with it to get task done.
-
-
-*/

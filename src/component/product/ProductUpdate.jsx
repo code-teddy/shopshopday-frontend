@@ -104,10 +104,6 @@ const ProductUpdate = () => {
     }
   };
 
-  // const handleImageUpdate = () => {
-  //   dispatch(getProductById(productId));
-  // };
-
   const handleEditImage = (imageId) => {
     setSelectedImageId(imageId);
     setShowImageModal(true);

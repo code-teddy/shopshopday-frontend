@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../../component/services/api";
+import { api, privateApi } from "../../component/services/api";
+
+
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
@@ -7,17 +9,15 @@ export const addToCart = createAsyncThunk(
     const formData = new FormData();
     formData.append("productId", productId);
     formData.append("quantity", quantity);
-    const response = await api.post("/cartItems/item/add", formData);   
+    const response = await privateApi.post("/cartItems/item/add", formData);
     return response.data;
   }
 );
 
 export const getUserCart = createAsyncThunk(
   "cart/getUserCart",
-  async (userId) => {
-    const response = await api.get(`/carts/user/${userId}/cart`);
-    console.log("The user cart from the slice", response.data.data);
-
+  async (userId) => {    
+    const response = await api.get(`/carts/user/${userId}/cart`);    
     return response.data.data;
   }
 );
@@ -25,11 +25,9 @@ export const getUserCart = createAsyncThunk(
 export const updateQuantity = createAsyncThunk(
   "cart/updateQuantity",
   async ({ cartId, itemId, newQuantity }) => {
-    console.log("Updating quantity", cartId, itemId, newQuantity);
     await api.put(
       `/cartItems/cart/${cartId}/item/${itemId}/update?quantity=${newQuantity}`
     );
-
     return { itemId, newQuantity };
   }
 );
@@ -62,9 +60,9 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addToCart.fulfilled, (state, action) => { 
+      .addCase(addToCart.fulfilled, (state, action) => {
         state.items.push(action.payload.data);
-        state.successMessage = action.payload.message;        
+        state.successMessage = action.payload.message;
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.errorMessage = action.error.message;

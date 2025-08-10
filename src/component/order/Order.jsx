@@ -17,25 +17,6 @@ const Order = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  /*
-
-Assignment : Implement a service in the order slice to fetch all orders for a given user.      
-
-1:
-            1. Create a thunk in the order slice to fetch user orders.
-            2. Use the thunk to call the backend API to get all orders for a user based on the userId.
-            3. Display the user orders or the order page when the user clicks
-             on the " My Orders " link on the NavBar " Account "  dropdown menu.
-
-            Remember to add reducers / extra reducers, useEffect, dispatch,
-             useSelector hooks when needed.
-            Remember to check the backend API the get the proper information about the
-             API endpoints and parameters.
-
-             GoodLuck!
-
-*/
-
   return (
     <div className='container mt-5'>
       <ToastContainer />

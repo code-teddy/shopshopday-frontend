@@ -20,7 +20,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const cartId = useSelector((state) => state.cart.cartId);
   const isLoading = useSelector((state) => state.cart.isLoading);
-  // const {successMessage , errorMessage} = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(getUserCart(userId));
@@ -145,10 +144,14 @@ const Cart = () => {
               Total Cart Amount: ${cart.totalAmount.toFixed(2)}
             </h4>
             <div className='ms-auto checkout-links'>
-              <Link to={"/products"}>Continue Shopping</Link>
+                <Link to={"/products"}>Continue Shopping</Link>
+                
+                
               <Link to={"#"} onClick={handlePlaceOrder}>
                 Proceed to Checkout
-              </Link>
+                </Link>
+                
+
             </div>
           </div>
         </div>

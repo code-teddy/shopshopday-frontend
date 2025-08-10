@@ -4,16 +4,18 @@ import { Link } from "react-router-dom";
 import ProductImage from "../utils/ProductImage";
 import StockStatus from "../utils/StockStatus";
 import { deleteProduct } from "../../store/features/productSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const ProductCard = ({ products }) => {
   const dispatch = useDispatch();
+  const userRoles = useSelector((state) => state.auth.roles);
+  const isAdmin = userRoles.includes("ROLE_ADMIN");
 
   const handleDelete = async (productId) => {
     try {
       const result = await dispatch(deleteProduct(productId)).unwrap();
-      toast.success(result.message);    
+      toast.success(result.message);
     } catch (error) {
       toast.error(error.message);
     }
@@ -40,10 +42,16 @@ const ProductCard = ({ products }) => {
               <StockStatus inventory={product.inventory} />
 
               <div className='d-flex gap-2'>
-                <Link to={"#"} onClick={() => handleDelete(product.id)}>
-                  delete
-                </Link>
-                <Link to={`/update-product/${product.id}/update`}>edit</Link>
+                {isAdmin && (
+                  <>
+                    <Link to={"#"} onClick={() => handleDelete(product.id)}>
+                      delete
+                    </Link>
+                    <Link to={`/update-product/${product.id}/update`}>
+                      edit
+                    </Link>
+                  </>
+                )}
 
                 <button className='shop-now-button'>Add to cart</button>
               </div>

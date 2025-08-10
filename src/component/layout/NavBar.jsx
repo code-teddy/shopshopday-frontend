@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart } from "../../store/features/cartSlice";
+import { logoutUser } from "../services/AuthService";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+
+  const userRoles = useSelector((state) => state.auth.roles);
+  const userId = localStorage.getItem("userId");
   const cart = useSelector((state) => state.cart);
-  const userId = 2;
+
+  const handleLogout = () => {
+    logoutUser();
+  };
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserCart(userId));
+    }
+  }, [dispatch, userId]);
 
   return (
     <Navbar expand='lg' sticky='top' className='nav-bg'>
@@ -24,49 +39,59 @@ const NavBar = () => {
             </Nav.Link>
           </Nav>
 
-          <Nav className='me-auto'>
-            <Nav.Link to={"/add-product"} as={Link}>
-              Manage Products
-            </Nav.Link>
-          </Nav>
+          {userRoles.includes("ROLE_ADMIN") && (
+            <Nav className='me-auto'>
+              <Nav.Link to={"/add-product"} as={Link}>
+                Manage Shop
+              </Nav.Link>
+            </Nav>
+          )}
 
           <Nav className='ms-auto'>
             <NavDropdown title='Account'>
-              <>
-                <NavDropdown.Item to={"#"} as={Link}>
-                  My Account
-                </NavDropdown.Item>
+              {userId ? (
+                <>
+                  <NavDropdown.Item
+                    to={`/user-profile/${userId}/profile`}
+                    as={Link}>
+                    My Account
+                  </NavDropdown.Item>
 
-                <NavDropdown.Divider />
+                  <NavDropdown.Divider />
 
-                <NavDropdown.Item to={`/user/${userId}/my-orders`} as={Link}>
-                  My Orders
-                </NavDropdown.Item>
+                  <NavDropdown.Item to={`/user/${userId}/my-orders`} as={Link}>
+                    My Orders
+                  </NavDropdown.Item>
 
-                <NavDropdown.Divider />
+                  <NavDropdown.Divider />
 
-                <NavDropdown.Item to={"#"}>Logout</NavDropdown.Item>
-              </>
-              <NavDropdown.Divider />
-              <NavDropdown.Item to={"#"} as={Link}>
-                Login
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item to={"/register"} as={Link}>
-                Register
-              </NavDropdown.Item>
+                  <NavDropdown.Item to={"#"} onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </>
+              ) : (
+                <>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item to={"/login"} as={Link}>
+                    Login
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                </>
+              )}
             </NavDropdown>
 
-            <Link
-              to={`/user/${userId}/my-cart`}
-              className='nav-link me-1 position-relative'>
-              <FaShoppingCart className='shopping-cart-icon' />
-              {cart.items.length > 0 ? (
-                <div className='badge-overlay'>{cart.items.length}</div>
-              ) : (
-                <div className='badge-overlay'>0</div>
-              )}
-            </Link>
+            {userId && (
+              <Link
+                to={`/user/${userId}/my-cart`}
+                className='nav-link me-1 position-relative'>
+                <FaShoppingCart className='shopping-cart-icon' />
+                {cart.items.length > 0 ? (
+                  <div className='badge-overlay'>{cart.items.length}</div>
+                ) : (
+                  <div className='badge-overlay'>0</div>
+                )}
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

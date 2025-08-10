@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Button, Form, Col, Container } from "react-bootstrap";
-import { getCountryNames, registerUser } from "../../store/features/userSlice";
+import { registerUser } from "../../store/features/userSlice";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
+import AddressForm from "../common/AddressForm";
 
 const UserRegistration = () => {
   const dispatch = useDispatch();
-  const [countries, setCountries] = useState([]);
 
   const [user, setUser] = useState({
     firstName: "",
@@ -16,7 +17,14 @@ const UserRegistration = () => {
   });
 
   const [addresses, setAddresses] = useState([
-    { country: "", state: "", city: "", street: "", addressType: "HOME" },
+    {
+      country: "",
+      state: "",
+      city: "",
+      street: "",
+      mobileNumber: "",
+      addressType: "HOME",
+    },
   ]);
 
   const handleUserChange = (e) => {
@@ -34,7 +42,14 @@ const UserRegistration = () => {
   const addAddress = () => {
     setAddresses([
       ...addresses,
-      { country: "", state: "", city: "", street: "", addressType: "HOME" },
+      {
+        country: "",
+        state: "",
+        city: "",
+        street: "",
+        mobileNumber: "",
+        addressType: "HOME",
+      },
     ]);
   };
 
@@ -42,14 +57,6 @@ const UserRegistration = () => {
     const updatedAddresses = addresses.filter((_, i) => i !== index);
     setAddresses(updatedAddresses);
   };
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      const response = await dispatch(getCountryNames()).unwrap();
-      setCountries(response);
-    };
-    fetchCountries();
-  }, [dispatch]);
 
   const handleRegistration = async (e) => {
     e.preventDefault();
@@ -67,7 +74,14 @@ const UserRegistration = () => {
   const resetForm = () => {
     setUser({ firstName: "", lastName: "", email: "", password: "" });
     setAddresses([
-      { country: "", state: "", city: "", street: "", addressType: "HOME" },
+      {
+        country: "",
+        state: "",
+        city: "",
+        street: "",
+        mobileNumber: "",
+        addressType: "HOME",
+      },
     ]);
   };
 
@@ -106,7 +120,6 @@ const UserRegistration = () => {
             </Form.Group>
           </Col>
         </Row>
-
         <Form.Group controlId='email'>
           <Form.Label>Email:</Form.Label>
           <Form.Control
@@ -117,7 +130,6 @@ const UserRegistration = () => {
             required
           />
         </Form.Group>
-
         <Form.Group controlId='password'>
           <Form.Label>Password:</Form.Label>
           <Form.Control
@@ -129,96 +141,18 @@ const UserRegistration = () => {
             required
           />
         </Form.Group>
-
         <h4 className='mt-4'>Addresses</h4>
-
         {addresses.map((address, index) => (
           <div key={index} className='border p-3 mb-3 rounded'>
             <h4>Address {index + 1}</h4>
-
-            <Row>
-              <Col md={4}>
-                <Form.Group controlId={`country-${index}`}>
-                  <Form.Label>Country:</Form.Label>
-                  <Form.Control
-                    as='select'
-                    name='country'
-                    value={address.country}
-                    onChange={(e) => handleAddressChange(index, e)}
-                    required>
-                    <option value=''>Select a country</option>
-                    {countries.map((country, index) => (
-                      <option key={index} value={country}>
-                        {country}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-              </Col>
-
-              <Col md={4}>
-                <Form.Group controlId={`state-${index}`}>
-                  <Form.Label>State/Province:</Form.Label>
-                  <Form.Control
-                    type='text'
-                    name='state'
-                    value={address.state}
-                    onChange={(e) => handleAddressChange(index, e)}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-
-              <Col md={4}>
-                <Form.Group controlId={`city-${index}`}>
-                  <Form.Label>City:</Form.Label>
-                  <Form.Control
-                    type='text'
-                    name='city'
-                    value={address.city}
-                    onChange={(e) => handleAddressChange(index, e)}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-
-            <Form.Group controlId={`street-${index}`}>
-              <Form.Label>Street:</Form.Label>
-              <Form.Control
-                type='text'
-                name='street'
-                value={address.street}
-                onChange={(e) => handleAddressChange(index, e)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId={`addressType-${index}`}>
-              <Form.Label>Address Type:</Form.Label>
-              <Form.Control
-                as='select'
-                name='addressType'
-                value={address.addressType}
-                onChange={(e) => handleAddressChange(index, e)}>
-                <option value='HOME'>Home</option>
-                <option value='OFFICE'>Office</option>
-                <option value='SHIPPING'>Shipping</option>
-              </Form.Control>
-            </Form.Group>
-
-            <div className='d-flex justify-content-end'>
-              <Button
-                variant='danger'
-                className='mt-2'
-                onClick={() => removeAddress(index)}
-                size='sm'>
-                Remove Address
-              </Button>
-            </div>
+            <AddressForm
+              address={address}
+              onChange={(e) => handleAddressChange(index, e)}
+              onCancel={() => removeAddress(index)}
+              showButtons={true}
+            />
           </div>
         ))}
-
         <div className='d-flex gap-4 mb-2 mt-2'>
           <Button variant='success' type='submit' size='sm'>
             Register
@@ -226,6 +160,12 @@ const UserRegistration = () => {
           <Button variant='primary' onClick={addAddress} size='sm'>
             Add Address
           </Button>
+        </div>
+        <div className='text-center mt-4 mb-4'>
+          Have an account already?{" "}
+          <Link to={"/login"} style={{ textDecoration: "none" }}>
+            Login here
+          </Link>
         </div>
       </Form>
     </Container>
