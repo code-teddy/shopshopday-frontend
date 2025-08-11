@@ -51,7 +51,7 @@ const Login = () => {
     }
     try {
      dispatch(login(credentials)).unwrap();
-    } catch  {     
+    } catch {     
       toast.error(authErrorMessage);
     }
   };

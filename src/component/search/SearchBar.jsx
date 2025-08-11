@@ -6,12 +6,11 @@ import {
   setSelectedCategory,
   clearFilters,
 } from "../../store/features/searchSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const { categoryId } = useParams();
-  const navigate = useNavigate();
   const categories = useSelector((state) => state.category.categories);
 
   const { searchQuery, selectedCategory } = useSelector(
@@ -38,7 +37,6 @@ const SearchBar = () => {
 
   const handleClearFilters = () => {
     dispatch(clearFilters());
-    navigate("/products");
   };
 
   const handleSearchQueryChange = (e) => {
