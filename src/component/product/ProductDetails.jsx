@@ -30,7 +30,7 @@ const ProductDetails = () => {
     try {
       await dispatch(addToCart({ productId, quantity })).unwrap();
       toast.success(successMessage);
-    } catch  {
+    } catch {
       toast.error(errorMessage);
     }
   };

@@ -15,7 +15,7 @@ import { ClipLoader } from "react-spinners";
 
 const Checkout = () => {
   const dispatch = useDispatch();
-  const { userId } = useParams(); 
+  const { userId } = useParams(); // userId : 28
 
   const cart = useSelector((state) => state.cart);
 

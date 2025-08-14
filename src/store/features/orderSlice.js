@@ -4,6 +4,7 @@ import { api } from "../../component/services/api";
 export const placeOrder = createAsyncThunk(
   "order/placeOrder",
   async ({userId}) => {
+    // userId : 28
     const response = await api.post(`/orders/user/${userId}/place-order`);
     return response.data;
   }

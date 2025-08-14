@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  itemsPerPage: 10,
+  itemsPerPage: 18,
   totalItems: 0,
   currentPage: 1,
 };
