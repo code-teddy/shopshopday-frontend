@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../../store/features/cartSlice";
-import { logoutUser } from "../services/AuthService";
+import { logoutUser } from "../services/authService";
 
 const NavBar = () => {
   const dispatch = useDispatch();
