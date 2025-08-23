@@ -18,6 +18,7 @@ import ProtectedRoute from "./component/auth/ProtectedRoute";
 import Unauthorized from "./component/Unauthorized";
 import UserProfile from "./component/user/UserProfile";
 import Checkout from "./component/checkout/Checkout";
+import AboutUs from "./component/about/AboutUs";
 
 function App() {
   const router = createBrowserRouter(
@@ -31,7 +32,7 @@ function App() {
           path='/products/category/:categoryId/products/'
           element={<Products />}
         />
-
+        <Route path="/about-us" element={<AboutUs />} />
         <Route
           path='/product/:productId/details'
           element={<ProductDetails />}
@@ -64,6 +65,7 @@ function App() {
             path='/update-product/:productId/update'
             element={<ProductUpdate />}
           />
+          
         </Route>
       </Route>
     )

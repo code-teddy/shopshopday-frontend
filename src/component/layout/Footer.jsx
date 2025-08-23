@@ -17,7 +17,9 @@ const Footer = () => {
       <div className='footer-container'>
         <div className='footer-section'>
           <h3>About Us</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <Link to="/about-us">
+              <p>Why ShopShopDay</p>
+            </Link>
         </div>
 
         <div className='footer-section'>

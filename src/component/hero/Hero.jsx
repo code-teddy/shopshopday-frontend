@@ -18,7 +18,6 @@ const Hero = () => {
           <a href='/products' className='home-shop-button link'>
             Shop Now
           </a>
-          <button className='deals-button'>Today's Deals</button>
         </div>
       </div>
     </div>
