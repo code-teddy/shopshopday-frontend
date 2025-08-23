@@ -30,7 +30,7 @@ jobs:
      - name: Build static website
        run: npm run build
        env:
-          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          VITE_API_BASE_URL: ${{ secrets.API_BASE_URL }}
           VITE_STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
           
        
