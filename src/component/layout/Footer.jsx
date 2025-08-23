@@ -33,8 +33,8 @@ const Footer = () => {
 
         <div className='footer-section'>
           <h3>Contact</h3>
-          <p>Email: info@buynow.com</p>
-          <p>Phone: (123) 456-7890</p>
+          <p>Email: info@shopshopday.online</p>
+          <p>Phone: (852) 1234 5678</p>
         </div>
 
         <div className='footer-section'>
@@ -62,7 +62,7 @@ const Footer = () => {
         </div>
 
         <div className='footer-bottom'>
-          <p>&copy; 2024 buynow.com. All rights reserved.</p>
+          <p>&copy; 2025 ShopShopDay.online. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -16,7 +16,6 @@ export const getUserCart = createAsyncThunk(
   "cart/getUserCart",
   async (userId) => {
     const response = await api.get(`/carts/user/${userId}/cart`);
-    console.log("The total amount 1", response.data);
     return response.data.data;
   }
 );
@@ -70,7 +69,6 @@ const cartSlice = createSlice({
         state.items = action.payload.items;
         state.cartId = action.payload.cartId;
         state.totalAmount = action.payload.totalAmount;
-        console.log("The total amount 2 is : ", action.payload.totalAmount);
         state.errorMessage = null;
         state.isLoading = false;
       })

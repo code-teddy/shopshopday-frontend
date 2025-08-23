@@ -13,7 +13,6 @@ export const addNewProduct = createAsyncThunk(
   "product/addNewProduct",
   async (product) => {
     const response = await privateApi.post("/products/add", product);
-    console.log("The response from the slice : ", response);
     return response.data.data;
   }
 );

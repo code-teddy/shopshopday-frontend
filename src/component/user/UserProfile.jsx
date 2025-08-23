@@ -93,7 +93,6 @@ const UserProfile = () => {
   };
 
   const handleDeleteAddress = async (id) => {
-    console.log(`deleting address with ID :  ${id}`);
     const updatedAddressList = user.addressList.filter(
       (address) => address.id !== id
     );

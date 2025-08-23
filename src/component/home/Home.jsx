@@ -68,7 +68,6 @@ const Home = () => {
       </div>
     );
   }
-  console.log("currentProducts", currentProducts);
 
   return (
     <>

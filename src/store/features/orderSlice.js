@@ -21,7 +21,6 @@ export const fetchUserOrders = createAsyncThunk(
 export const createPaymentIntent = createAsyncThunk(
   "payments/createPaymentIntent",
   async ({ amount, currency }) => {
-    console.log("createPaymentIntent from the slice :", {amount, currency})
     const response = await api.post("/orders/create-payment-intent", {
       amount,
       currency,
