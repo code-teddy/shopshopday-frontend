@@ -89,7 +89,7 @@ const Home = () => {
                 <p className='product-description'>
                   {product.name} - {product.description}
                 </p>
-                <h4 className='price'>{product.price}</h4>
+                <h4 className='price'>${product.price}</h4>
 
                 <StockStatus inventory={product.inventory} />
 

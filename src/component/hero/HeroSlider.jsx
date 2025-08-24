@@ -2,12 +2,11 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import bg1 from "../../assets/images/hero-1.jpg";
-import bg2 from "../../assets/images/hero-2.jpg";
-import bg3 from "../../assets/images/hero-3.jpg";
-import bg5 from "../../assets/images/hero-7.jpg";
+import bg1 from "../../assets/images/hero-1.png";
+import bg2 from "../../assets/images/hero-2.png";
+import bg3 from "../../assets/images/hero-3.png";
 
-const images = [bg1, bg2, bg3, bg5];
+const images = [bg1, bg2, bg3];
 
 const HeroSlider = () => {
   const settings = {

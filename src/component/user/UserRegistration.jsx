@@ -141,7 +141,7 @@ const UserRegistration = () => {
             required
           />
         </Form.Group>
-        <h4 className='mt-4'>Addresses</h4>
+        <div className='mt-4'></div>
         {addresses.map((address, index) => (
           <div key={index} className='border p-3 mb-3 rounded'>
             <h4>Address {index + 1}</h4>
