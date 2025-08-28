@@ -99,7 +99,7 @@ const ImageSearch = () => {
                     animation='border'
                     size='sm'
                     color='#a88c3d'
-                    loading={isLoading}
+                    // loading={isLoading}
                   />
                   Searching for similar products...
                 </>
