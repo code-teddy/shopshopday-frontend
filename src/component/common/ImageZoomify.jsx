@@ -3,13 +3,15 @@ import ImageZoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
 const ImageZoomify = ({ productId }) => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const [productImg, setProductImg] = useState(null);
 
   useEffect(() => {
     const fetchProductImage = async (id) => {
       try {
         const response = await fetch(
-          `http://localhost:9090/api/v1/images/image/download/${id}`
+          `${BASE_URL}/images/image/download/${id}`
         );
         const blob = await response.blob();
         const reader = new FileReader();
