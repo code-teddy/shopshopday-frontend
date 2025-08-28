@@ -15,7 +15,7 @@ import { ClipLoader } from "react-spinners";
 
 const Checkout = () => {
   const dispatch = useDispatch();
-  const { userId } = useParams(); // userId : 28
+  const { userId } = useParams(); 
 
   const cart = useSelector((state) => state.cart);
 
@@ -99,7 +99,7 @@ const Checkout = () => {
         return;
       }
       if (paymentIntent.status === "succeeded") {
-        await dispatch(placeOrder({ userId })).unwrap(); // userId : 28
+        await dispatch(placeOrder({ userId })).unwrap();
         toast.success("Payment successful! Your order has been placed.");
         setTimeout(() => {
           window.location.href=`/user-profile/${userId}/profile`;          

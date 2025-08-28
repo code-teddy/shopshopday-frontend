@@ -15,7 +15,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const products = useSelector((state) => state.product.distinctProducts);
-  const { searchQuery, selectedCategory, imageSearchResults } = useSelector(
+  const { searchQuery, selectedCategory } = useSelector(
     (state) => state.search
   );
   const { itemsPerPage, currentPage } = useSelector(
@@ -37,18 +37,11 @@ const Home = () => {
         product.category.name
           .toLowerCase()
           .includes(selectedCategory.toLowerCase());
-      
-        const matchesImageSearch =
-          imageSearchResults.length > 0
-            ? imageSearchResults.some((result) =>
-                product.name.toLowerCase().includes(result.name.toLowerCase())
-              )
-            : true;
 
-      return matchesQuery && matchesCategory && matchesImageSearch;
+      return matchesQuery && matchesCategory;
     });
     setFilteredProducts(results);
-  }, [searchQuery, selectedCategory, products, imageSearchResults]);
+  }, [searchQuery, selectedCategory, products]);
 
   useEffect(() => {
     dispatch(setTotalItems(filteredProducts.length));
@@ -89,7 +82,7 @@ const Home = () => {
                 <p className='product-description'>
                   {product.name} - {product.description}
                 </p>
-                <h4 className='price'>${product.price}</h4>
+                <h4 className='price'>{product.price}</h4>
 
                 <StockStatus inventory={product.inventory} />
 

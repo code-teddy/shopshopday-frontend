@@ -15,9 +15,7 @@ export const addToCart = createAsyncThunk(
 export const getUserCart = createAsyncThunk(
   "cart/getUserCart",
   async (userId) => {
-    console.log("userId!!!!: ", userId);
     const response = await api.get(`/carts/user/${userId}/cart`);
-    console.log("The total amount 1: ", response.data);
     return response.data.data;
   }
 );

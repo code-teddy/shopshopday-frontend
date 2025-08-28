@@ -56,6 +56,7 @@ const AddProduct = () => {
     e.preventDefault();
     try {
       const result = await dispatch(addNewProduct(product)).unwrap();
+      console.log("The add product result : ", result);
       setProductId(result.id);
       toast.success(result.message);
       resetForm();

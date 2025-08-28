@@ -64,9 +64,6 @@ const Cart = () => {
    navigate(`/checkout/${userId}/checkout`)
   };
 
-
-  
-
   if (isLoading) {
     return <LoadSpinner />;
   }
