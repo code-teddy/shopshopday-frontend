@@ -25,16 +25,16 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const getCountryNames = createAsyncThunk(
-  "user/getCountryNames",
+export const getCountries = createAsyncThunk(
+  "user/getCountries",
   async () => {
-    const response = await axios.get("https://restcountries.com/v3.1/all?fields=name,code");
-    const countryNames = response.data.map((country) => ({
+    const response = await axios.get("https://restcountries.com/v3.1/all?fields=name,cca2");
+    const countries = response.data.map((country) => ({
       name: country.name.common,
       code: country.cca2,
     }));
-    countryNames.sort((a, b) => a.name.localeCompare(b.name));
-    return countryNames;
+    countries.sort((a, b) => a.name.localeCompare(b.name));
+    return countries;
   }
 );
 /* Add CRUD for address api */

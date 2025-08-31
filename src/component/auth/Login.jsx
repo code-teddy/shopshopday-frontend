@@ -42,30 +42,40 @@ const Login = () => {
     }));
   };
 
-  const handleLogin =(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    
+    // Client-side validation
     if (!credentials.email || !credentials.password) {
-      toast.error("Invalid username or password");
-      setErrorMessage("Invalid username or password");
+      const errorMsg = "Please enter both email and password";
+      toast.error(errorMsg);
+      setErrorMessage(errorMsg);
       return;
     }
+    
     try {
-     dispatch(login(credentials)).unwrap();
-    } catch {     
-      toast.error(authErrorMessage);
+      // This will either succeed or be handled by the Redux rejected case
+      await dispatch(login(credentials)).unwrap();
+      toast.success("Login successful!");
+    } catch  {
+      // This catch block will handle any errors that weren't caught by Redux
+      // The actual error message will be handled by the useEffect above
+      toast.success("Login failed");
     }
   };
-
   return (
+    <>
+    
+     <ToastContainer />
     <Container className='mt-5 mb-5'>
-      <ToastContainer />
+     
       <Row className='d-flex justify-content-center'>
         <Col xs={12} sm={10} md={8} lg={6} xl={6}>
           <Card>
             <Card.Body>
-              {authErrorMessage && (
+              {/* {authErrorMessage && (
                 <div className='text-danger'>{authErrorMessage}</div>
-              )}
+              )} */}
               <Card.Title className='text-center mb-4'>Login</Card.Title>
 
               <Form onSubmit={handleLogin}>
@@ -78,12 +88,12 @@ const Login = () => {
                     </InputGroup.Text>
 
                     <Form.Control
-                      type='text'
+                      type='email'
                       name='email'
                       placeholder='Enter your email address'
                       value={credentials.email}
                       onChange={handleInputChange}
-                      isInvalid={!!errorMessage}
+                      isInvalid={!!authErrorMessage || errorMessage}
                     />
                   </InputGroup>
                 </Form.Group>
@@ -100,10 +110,16 @@ const Login = () => {
                       placeholder='Enter your password'
                       value={credentials.password}
                       onChange={handleInputChange}
-                      isInvalid={!!errorMessage}
+                      isInvalid={!!authErrorMessage || errorMessage}
                     />
                   </InputGroup>
                 </Form.Group>
+
+                {(authErrorMessage || errorMessage) && (
+                  <div className="alert alert-danger" role="alert">
+                    {authErrorMessage || errorMessage}
+                  </div>
+                )}
 
                 <Button
                   variant='outline-primary'
@@ -124,6 +140,7 @@ const Login = () => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 

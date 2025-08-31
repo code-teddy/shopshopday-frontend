@@ -35,6 +35,7 @@ const Checkout = () => {
     city: "",
     state: "",
     country: "",
+    mobileNumber: "",
   });
 
   const handleInputChange = (event) => {
@@ -86,7 +87,7 @@ const Checkout = () => {
                 city: billingAddress.city,
                 state: billingAddress.state,
                 country: billingAddress.country,
-                postal_code: billingAddress.postalCode,
+                // postal_code: billingAddress.postalCode,
               },
             },
           },
@@ -123,7 +124,7 @@ const Checkout = () => {
                 <Col md={6}>
                   <FormGroup>
                     <label htmlFor='firstName' className='form-label'>
-                      Firstname
+                      First Name
                     </label>
                     <input
                       type='text'
@@ -139,7 +140,7 @@ const Checkout = () => {
                 <Col md={6}>
                   <FormGroup>
                     <label htmlFor='lastName' className='form-label'>
-                      Lastname
+                      Last Name
                     </label>
                     <input
                       type='text'
@@ -168,7 +169,7 @@ const Checkout = () => {
               </FormGroup>
 
               <div>
-                <h6>Enter Billing Address</h6>
+                <h6 className="mt-4">Billing Address</h6>
                 <AddressForm
                   onChange={handleAddressChange}
                   address={billingAddress}
@@ -197,14 +198,14 @@ const Checkout = () => {
             <hr />
             <Card style={{ backgroundColor: "whiteSmoke" }}>
               <Card.Body>
-                <Card.Title className='mb-2 text-muted text-success'>
+                <Card.Title className='mt-2 text-muted text-success'>
                   Tatal Amount : ${cart.totalAmount.toFixed(2)}
                 </Card.Title>
               </Card.Body>
 
               <button
                 type='submit'
-                className='btn btn-warning mt-3'
+                className='btn btn-warning'
                 disabled={!stripe}
                 onClick={(e) => handlePaymentAndOrder(e)}>
                 {loading ? (

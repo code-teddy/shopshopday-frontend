@@ -42,23 +42,24 @@ const ProductCard = ({ products }) => {
               <StockStatus inventory={product.inventory} />
 
               <div className='d-flex gap-2'>
+                <Link to={`/product/${product.id}/details`}>
+                  <button className="my-btn">View Details</button>
+                </Link>
+              </div>
+              <div className='d-flex gap-2 mt-2'>
                 {isAdmin && (
                   <>
                     <Link to={"#"} onClick={() => handleDelete(product.id)}>
-                      delete
+                      <button className="my-btn">Delete</button>
                     </Link>
+  
                     <Link to={`/update-product/${product.id}/update`}>
-                      edit
+                       <button className="my-btn">Edit</button>
                     </Link>
                   </>
                 )}
-
-                <Link
-                  to={`/product/${product.id}/details`}
-                  className='shop-now-button'>
-                  Add to cart
-                </Link>
               </div>
+
             </Card.Body>
           </Card>
         </div>

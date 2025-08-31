@@ -57,12 +57,9 @@ const ProductDetails = () => {
           </div>
           <div className='col-md-8 details-container'>
             <h1 className='product-name'>{product.name}</h1>
-            <h4 className='price'>${product.price}</h4>
+            <h4 className='price mt-2'>${product.price}</h4>
             <p className='product-description'>{product.description}</p>
             <p className='product-name'>Brand: {product.brand}</p>
-            <p className='product-name'>
-              Rating: <span className='rating'>some stars</span>
-            </p>
 
             <StockStatus inventory={product.inventory} />
 
@@ -75,14 +72,14 @@ const ProductDetails = () => {
             />
             <div className='d-flex gap-2 mt-3'>
               <button
-                className='add-to-cart-button'
+                className='my-btn'
                 onClick={handleAddToCart}
                 disabled={productOutOfStock}>
                 {" "}
-                <FaShoppingCart /> Add to cart
+                <FaShoppingCart /> Add To Cart
               </button>
-              <button className='buy-now-button' disabled={productOutOfStock}>
-                Buy now
+              <button className='my-btn' disabled={productOutOfStock}>
+                Buy Now
               </button>
             </div>
           </div>

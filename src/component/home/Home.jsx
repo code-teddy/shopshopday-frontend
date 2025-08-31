@@ -87,10 +87,9 @@ const Home = () => {
                 <StockStatus inventory={product.inventory} />
 
                 <Link
-                  to={`/products/${product.name}`}
-                  className='shop-now-button'>
+                  to={`/products/${product.name}`}>
                   {" "}
-                  Shop now
+                  <button className="my-btn">More</button>
                 </Link>
               </Card.Body>
             </Card>

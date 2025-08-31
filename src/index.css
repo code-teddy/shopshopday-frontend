@@ -558,11 +558,12 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    text-align: center;
     height: 100vh;
-    padding: 100px;
-    color: #d6edec;
+    padding: 50px;
+    color: black;
     font-size: 30px;
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 
@@ -574,3 +575,20 @@
 
     /* Default color */
 }
+
+.my-btn {
+  background-color: #e29882;   /* your custom color */
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  cursor: pointer;
+}
+
+.my-btn:hover {
+  background-color: #e64a19;   /* darker shade */
+}
+

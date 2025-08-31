@@ -202,32 +202,33 @@ const UserProfile = () => {
                             </Card.Text>
                           </Card.Body>
 
-                          <div className='d-flex gap-4'>
+                          <div className='d-flex gap-4 ms-3 mb-2'>
                             <Link>
-                              <span
+                              <div
                                 className='text-danger'
                                 onClick={() => handleDeleteAddress(address.id)}>
                                 <FaTrash />
-                              </span>
+                              </div>
                             </Link>
                             <Link variant='primary'>
-                              <span
+                              <div
                                 className='text-info'
                                 onClick={() => handleEditClick(address)}>
                                 <FaEdit />
-                              </span>
+                              </div>
                             </Link>
                           </div>
                         </Card>
                       </ListGroup.Item>
                     ))
                   ) : (
-                    <p> No addresses found</p>
+                    // <p> </p>
+                    <div className="m-3">No addresses found</div>
                   )}
                 </ListGroup>
-
+                {!showForm && (
                 <Link
-                  className='mb-2 ms-2'
+                  className='m-2 btn'
                   variant='success'
                   onClick={() => {
                     setShowForm(true);
@@ -235,6 +236,8 @@ const UserProfile = () => {
                   }}>
                   <FaPlus />
                 </Link>
+                )}
+
 
                 {showForm && (
                   <AddressForm
@@ -327,7 +330,11 @@ const UserProfile = () => {
                     </Table>
                   )}
                   <div className='mb-2'>
-                    <Link to='/products'>Start Shopping </Link>
+                    <Link to='/products'>
+                      <button className="my-btn">
+                        Start Shopping
+                      </button>
+                    </Link>
                   </div>
                 </Container>
               </Card>

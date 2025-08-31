@@ -27,7 +27,7 @@ const NavBar = () => {
     <Navbar expand='lg' sticky='top' className='nav-bg'>
       <Container>
         <Navbar.Brand to={"/"} as={Link}>
-          <span className='shop-home'>ShopShopDay</span>
+          <img src="/src/assets/images/logo.png" alt="ShopShopDay logo" style={{ width: "150px", height: "auto" }}/>
         </Navbar.Brand>
 
         <Navbar.Toggle />

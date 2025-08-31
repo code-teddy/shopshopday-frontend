@@ -3,7 +3,7 @@ import { BsDash, BsPlus } from "react-icons/bs";
 
 const QuantityUpdater = ({ disabled, quantity, onIncrease, onDecrease }) => {
   return (
-    <section style={{ width: "150px" }}>
+    <section style={{ width: "160px" }}>
       <div className='input-group'>
         <button
           onClick={onDecrease}
@@ -19,7 +19,9 @@ const QuantityUpdater = ({ disabled, quantity, onIncrease, onDecrease }) => {
           value={quantity}
           readOnly
           disabled={disabled}
-          className='form-control text-center'></input>
+          className='form-control text-center ps-4' 
+        >   
+        </input>
 
         <button
           onClick={onIncrease}

@@ -4,9 +4,18 @@ import { jwtDecode } from "jwt-decode";
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ email, password }) => {
-    const response = await api.post("/auth/login", { email, password });
-    return response.data;
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      return response.data;
+    } catch (error) {
+      // Extract the error message from the backend response
+      const errorMessage = error.response?.data?.error || 
+                          error.response?.data?.message || 
+                          error.message || 
+                          "Login failed. Please try again.";
+      return rejectWithValue(errorMessage);
+    }
   }
 );
 
@@ -20,7 +29,21 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+    reducers: {
+    clearError: (state) => {
+      state.errorMessage = null;
+    },
+    logout: (state) => {
+      state.isAuthenticated = false;
+      state.token = null;
+      state.roles = [];
+      state.errorMessage = null;
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userRoles");
+      localStorage.removeItem("userId");
+      window.location.href = "/";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
@@ -35,9 +58,17 @@ const authSlice = createSlice({
         localStorage.setItem("userId", decodedToken.id);
       })
       .addCase(login.rejected, (state, action) => {        
-        state.errorMessage = action.error.message;
+        state.isAuthenticated = false;
+        state.token = null;
+        state.roles = [];
+        state.errorMessage = action.payload || "Login failed. Please try again.";
+  
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("userRoles");
+        localStorage.removeItem("userId");
       });
   },
 });
 
+export const { clearError, logout } = authSlice.actions;
 export default authSlice.reducer;

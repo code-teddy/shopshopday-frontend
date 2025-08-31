@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Col, Row, Form } from "react-bootstrap";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { getCountryNames } from "../../store/features/userSlice";
-
+import { getCountries } from "../../store/features/userSlice";
+import { toast, ToastContainer } from "react-toastify";
 const AddressForm = ({
   address,
   onChange,
@@ -17,19 +17,38 @@ const AddressForm = ({
 }) => {
   const dispatch = useDispatch();
   const [countries, setCountries] = useState([]);
-
   useEffect(() => {
     const fetchCountries = async () => {
-      const response = await dispatch(getCountryNames()).unwrap();
+      const response = await dispatch(getCountries()).unwrap();
       setCountries(response);
     };
     fetchCountries();
   }, [dispatch]);
 
-  return (
-    <div className='p-4 m-4 border'>
-      {showTitle && <h5>{isEditing ? "Edit Address" : "Add New Address"}</h5>}
 
+  // const isValid = useMemo(() => Object.keys(validate(address)).length === 0, [address, showAddressType]);
+
+  const handleSubmit = () => {
+    if (
+      !address.street?.trim() ||
+      !address.state?.trim() ||
+      !address.city?.trim() ||
+      !address.country?.trim() ||
+      !address.mobileNumber?.trim() ||
+      (showAddressType && !address.addressType?.trim())
+    ) {
+      toast("Please fill all required fields.");
+      return;
+    }
+
+    onSubmit?.();
+  };
+
+  return (
+    <>
+      <ToastContainer />
+      <div className='p-4 m-4 border'>
+      {showTitle && <h5>{isEditing ? "Edit Address" : "Add New Address"}</h5>}
       <Row>
         <Col md={6}>
           <Form.Group className='mb-2'>
@@ -40,6 +59,7 @@ const AddressForm = ({
               placeholder='Street'
               value={address.street}
               onChange={onChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -52,6 +72,7 @@ const AddressForm = ({
               placeholder='City'
               value={address.city}
               onChange={onChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -65,6 +86,7 @@ const AddressForm = ({
           placeholder='State'
           value={address.state}
           onChange={onChange}
+          required
         />
       </Form.Group>
 
@@ -75,8 +97,10 @@ const AddressForm = ({
             <Form.Select
               name='country'
               value={address.country}
-              onChange={onChange}>
-              <option value=''>select country...</option>
+              onChange={onChange}
+              required
+            >
+              <option value=''>Select Country</option>
               {countries.map((country, index) => (
                 <option key={index} value={country.code}>
                   {country.name}
@@ -94,6 +118,7 @@ const AddressForm = ({
               placeholder='Phone Number'
               value={address.mobileNumber}
               onChange={onChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -105,7 +130,9 @@ const AddressForm = ({
           <Form.Select
             name='addressType'
             value={address.addressType}
-            onChange={onChange}>
+            onChange={onChange}
+            required
+          >
             <option value=''>select address type</option>{" "}
             <option value='HOME'>Home</option>
             <option value='OFFICE'>Office</option>
@@ -118,7 +145,7 @@ const AddressForm = ({
         <div className='d-flex gap-4 mt-3'>
           {showCheck && (
             <div
-              onClick={onSubmit}
+              onClick={handleSubmit}
               style={{ cursor: "pointer", color: "green" }}>
               <FaCheck
                 size={24}
@@ -133,6 +160,7 @@ const AddressForm = ({
         </div>
       )}
     </div>
+    </>
   );
 };
 
