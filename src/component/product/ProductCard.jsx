@@ -49,12 +49,11 @@ const ProductCard = ({ products }) => {
               <div className='d-flex gap-2 mt-2'>
                 {isAdmin && (
                   <>
-                    <Link to={"#"} onClick={() => handleDelete(product.id)}>
-                      <button className="my-btn">Delete</button>
-                    </Link>
-  
                     <Link to={`/update-product/${product.id}/update`}>
-                       <button className="my-btn">Edit</button>
+                       <button className="btn btn-secondary btn-sm">Edit</button>
+                    </Link> 
+                    <Link to={"#"} onClick={() => handleDelete(product.id)}>
+                      <button className='btn btn-danger btn-sm'>Delete</button>
                     </Link>
                   </>
                 )}

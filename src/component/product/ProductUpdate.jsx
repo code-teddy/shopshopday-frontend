@@ -201,7 +201,7 @@ const ProductUpdate = () => {
             </div>
 
             <button type='submit' className='btn btn-secondary btn-sm'>
-              Save product update
+              Update Product 
             </button>
           </form>
         </div>
@@ -216,12 +216,12 @@ const ProductUpdate = () => {
 
                     <div className='d-flex gap-4 mb-2 mt-2'>
                       <Link to={"#"} onClick={() => handleEditImage(image.id)}>
-                        edit
+                        <button className='btn btn-secondary btn-sm'>Edit</button>
                       </Link>
                       <Link
                         to={"#"}
                         onClick={() => handleDeleteImage(image.id)}>
-                        remove
+                        <button className='btn btn-danger btn-sm'>Remove</button>
                       </Link>
                     </div>
                   </td>
@@ -230,7 +230,7 @@ const ProductUpdate = () => {
             </tbody>
           </table>
           <Link to={"#"} onClick={() => handleAddImage(productId)}>
-            Add Image
+            <button className='btn btn-primary btn-sm'>Add Image</button>
           </Link>
         </div>
       </div>
