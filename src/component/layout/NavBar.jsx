@@ -5,7 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../../store/features/cartSlice";
 import { logoutUser } from "../services/authService";
-
+import logo from "/src/assets/images/logo.png";
 const NavBar = () => {
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const NavBar = () => {
     <Navbar expand='lg' sticky='top' className='nav-bg'>
       <Container>
         <Navbar.Brand to={"/"} as={Link}>
-          <img src="/src/assets/images/logo.png" alt="ShopShopDay logo" style={{ width: "150px", height: "auto" }}/>
+          <img src={logo} alt="ShopShopDay logo" style={{ width: "150px", height: "auto" }}/>
         </Navbar.Brand>
 
         <Navbar.Toggle />

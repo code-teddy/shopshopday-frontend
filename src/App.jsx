@@ -19,6 +19,7 @@ import Unauthorized from "./component/Unauthorized";
 import UserProfile from "./component/user/UserProfile";
 import Checkout from "./component/checkout/Checkout";
 import AboutUs from "./component/about/AboutUs";
+import ScrollToTop from "./component/common/ScrollToTop";
 
 function App() {
   const router = createBrowserRouter(

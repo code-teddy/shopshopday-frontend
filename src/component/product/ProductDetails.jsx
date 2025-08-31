@@ -78,9 +78,9 @@ const ProductDetails = () => {
                 {" "}
                 <FaShoppingCart /> Add To Cart
               </button>
-              <button className='my-btn' disabled={productOutOfStock}>
+              {/* <button className='my-btn' disabled={productOutOfStock}>
                 Buy Now
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
