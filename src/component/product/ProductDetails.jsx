@@ -14,8 +14,9 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const { product, quantity } = useSelector((state) => state.product);
-  const successMessage = useSelector((state) => state.cart.successMessage);
-  const errorMessage = useSelector((state) => state.cart.errorMessage);
+  const { isAdding } = useSelector((s) => s.cart);
+  // const successMessage = useSelector((state) => state.cart.successMessage);
+  // const errorMessage = useSelector((state) => state.cart.errorMessage);
   const productOutOfStock = product?.inventory <= 0;
 
   useEffect(() => {
@@ -27,11 +28,14 @@ const ProductDetails = () => {
       toast.error("You need to be logged in to add items to the cart.");
       return;
     }
-    try {
-      await dispatch(addToCart({ productId, quantity })).unwrap();
-      toast.success(successMessage);
-    } catch {
-      toast.error(errorMessage);
+
+    const resultAction = await dispatch(addToCart({ productId, quantity }));
+    if (addToCart.fulfilled.match(resultAction)) {
+      toast.success(resultAction.payload?.message ?? "Added to cart");
+    } else {
+      const msg =
+        resultAction.payload || resultAction.error?.message || "Failed to add to cart";
+      toast.error(msg);
     }
   };
 
@@ -75,12 +79,8 @@ const ProductDetails = () => {
                 className='my-btn'
                 onClick={handleAddToCart}
                 disabled={productOutOfStock}>
-                {" "}
                 <FaShoppingCart /> Add To Cart
               </button>
-              {/* <button className='my-btn' disabled={productOutOfStock}>
-                Buy Now
-              </button> */}
             </div>
           </div>
         </div>

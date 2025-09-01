@@ -48,7 +48,7 @@
 {
     padding: 10px 20px;
     border: none;
-    background-color: var(--search-button-color);
+    background-color: var(--search-color-primary);
     border-radius: 0 5px 5px 0;
     cursor: pointer;
 }
@@ -570,9 +570,10 @@
 :root
 {
     --search-button-color: #c38212;
+    --search-color-primary: #f3b56d;
     --dark-background: #000000b3;
     --nav-background: #f1f0f0;
-
+    
     /* Default color */
 }
 

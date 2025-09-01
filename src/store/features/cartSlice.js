@@ -3,12 +3,25 @@ import { api, privateApi } from "../../component/services/api";
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ productId, quantity }) => {
-    const formData = new FormData();
-    formData.append("productId", productId);
-    formData.append("quantity", quantity);
-    const response = await privateApi.post("/cartItems/item/add", formData);
-    return response.data;
+  async ({ productId, quantity }, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append("productId", productId);
+      formData.append("quantity", quantity);
+      const { data } = await privateApi.post("/cartItems/item/add", formData);
+
+      // Ensure a stable payload shape
+      return {
+        item: data?.item ?? data,
+        message: data?.message ?? "Added to cart",
+      };
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Failed to add to cart";
+      return rejectWithValue(msg);
+    }
   }
 );
 
@@ -43,6 +56,7 @@ const initialState = {
   cartId: null,
   totalAmount: 0,
   isLoading: true,
+  isAdding: false,   
   errorMessage: null,
   successMessage: null,
 };
@@ -55,15 +69,27 @@ const cartSlice = createSlice({
       state.items = [];
       state.totalAmount = 0;
     },
+        clearMessages: (state) => {
+      state.successMessage = null;
+      state.errorMessage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
+          .addCase(addToCart.pending, (state) => {
+        state.isAdding = true;
+        state.errorMessage = null;
+        state.successMessage = null;
+      })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.items.push(action.payload);
-        state.successMessage = action.payload.message;
+        state.isAdding = false;
+        const { item, message } = action.payload;
+        if (item) state.items.push(item);
+        state.successMessage = message;
       })
       .addCase(addToCart.rejected, (state, action) => {
-        state.errorMessage = action.error.message;
+        state.isAdding = false;
+        state.errorMessage = action.payload || action.error.message;
       })
       .addCase(getUserCart.fulfilled, (state, action) => {
         state.items = action.payload.items;
@@ -98,6 +124,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart } = cartSlice.actions;
+export const { clearCart, clearMessages } = cartSlice.actions;
 
 export default cartSlice.reducer;
