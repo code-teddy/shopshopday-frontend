@@ -62,7 +62,7 @@ const AddProduct = () => {
       resetForm();
       setActiveStep(1);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error);
     }
   };
 
@@ -88,7 +88,7 @@ const AddProduct = () => {
       <ToastContainer />
       <div className='d-flex justify-content-center'>
         <div className='col-md-6 col-xs-12'>
-          <h4>Add New Product</h4>
+          <h4 className="mb-4 ms-2">Add New Product</h4>
           <Stepper activeStep={activeStep} className='mb-4'>
             {steps.map((label) => (
               <Step key={label}>

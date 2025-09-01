@@ -11,9 +11,16 @@ export const getAllProducts = createAsyncThunk(
 
 export const addNewProduct = createAsyncThunk(
   "product/addNewProduct",
-  async (product) => {
-    const response = await privateApi.post("/products/add", product);
-    return response.data.data;
+  async (product, { rejectWithValue }) => {
+    try {
+      const response = await privateApi.post("/products/add", product);
+      return response.data.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.response?.data || error.message || "An error occurred");
+    }
   }
 );
 
@@ -134,6 +141,10 @@ const productSlice = createSlice({
         state.products.push(action.payload);
         state.errorMessage = null;
         state.isLoading = false;
+      })
+      .addCase(addNewProduct.rejected, (state, action) => {
+        // Check if it's a custom rejection with value, otherwise use error message
+        state.errorMessage = action.payload || action.error.message;
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.product = action.payload.data;

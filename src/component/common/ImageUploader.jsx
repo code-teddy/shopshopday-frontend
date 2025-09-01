@@ -56,14 +56,20 @@ const ImageUploader = ({ productId }) => {
 
   return (
     <form onSubmit={handleImageUpload}>
-      <div className='mt-4'>
-        <h5>Upload product image (s)</h5>
-
+      <div className='mt-'>
+        <div className="mt-4 mb-4">
+          <h5>Upload product image (s)</h5>
+        </div>
         <Link to={"#"} onClick={handleAddImageInput}>
-          <BsPlus className='icon' /> Add More Images
+          
+          <button className='my-btn'> 
+            <BsPlus className='icon' />
+            
+            <span>Add More Images</span>
+          </button> 
         </Link>
 
-        <div className='mb-2 mt-2'>
+        <div className='mb-5 mt-5'>
           {imageInputs.map((input, index) => (
             <div
               key={input.id}
@@ -86,7 +92,7 @@ const ImageUploader = ({ productId }) => {
         </div>
 
         {imageInputs.length > 0 && (
-          <button type='submit' className='btn btn-primary btn-sm'>
+          <button type='submit' className='btn btn-primary mb-4'>
             Upload Images
           </button>
         )}
