@@ -58,6 +58,10 @@
     text-decoration: none;
 
 }
+.home-content 
+{
+    min-height: 700px;
+}
 
 .home-product-card
 {
@@ -67,6 +71,18 @@
     padding: 2px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.no-products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 300px; 
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #555;
+  text-align: center;
 }
 
 /* Responsive adjustments */
@@ -199,6 +215,14 @@
 {
     margin: 10px 0;
     color: rgb(69, 96, 75);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show 2 lines max */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;
+    max-height: 4.2em; /* 2 lines * line-height */
 }
 
 .rating
@@ -459,7 +483,7 @@
     background-color: var(--nav-background);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 150px;
+    max-width: 155px;
     margin: 0 20px;
     position: sticky;
 }
@@ -473,6 +497,17 @@
 {
     list-style-type: none;
     padding: 0;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+.brand-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.brand-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .brand-item
@@ -590,5 +625,5 @@
 }
 
 .my-btn:hover {
-  background-color: #e64a19;   /* darker shade */
+  background-color: #e64a19;  
 }

@@ -7,9 +7,11 @@ import {
   clearFilters,
 } from "../../store/features/searchSlice";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
+   const navigate = useNavigate();
   const { categoryId } = useParams();
   const categories = useSelector((state) => state.category.categories);
 
@@ -37,7 +39,7 @@ const SearchBar = () => {
 
   const handleClearFilters = () => {
     dispatch(clearFilters());
-   // navigate("/products");
+    navigate("/products");
   };
 
   const handleSearchQueryChange = (e) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Hero from "../hero/Hero";
 import Paginator from "../common/Paginator";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProductImage from "../utils/ProductImage";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -10,9 +10,11 @@ import { setTotalItems } from "../../store/features/paginationSlice";
 import { getDistinctProductsByName } from "../../store/features/productSlice";
 import LoadSpinner from "../common/LoadSpinner";
 import StockStatus from "../utils/StockStatus";
+import { clearFilters } from "../../store/features/searchSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const products = useSelector((state) => state.product.distinctProducts);
   const { searchQuery, selectedCategory } = useSelector(
@@ -26,6 +28,12 @@ const Home = () => {
   useEffect(() => {
     dispatch(getDistinctProductsByName());
   }, [dispatch]);
+
+  useEffect(() => {
+  return () => {
+    dispatch(clearFilters());
+  };
+}, [dispatch]);
 
   useEffect(() => {
     const results = products.filter((product) => {
@@ -65,10 +73,10 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <div className='d-flex flex-wrap justify-content-center p-5'>
+      <div className='d-flex flex-wrap justify-content-center p-5 home-content'>
         <ToastContainer />
-        {currentProducts &&
-          currentProducts.map((product) => (
+        {currentProducts} ? 
+          {currentProducts.map((product) => (
             <Card key={product.id} className='home-product-card'>
               <Link to={`/products/${product.name}`} className='link'>
                 <div className='image-container'>
@@ -94,6 +102,9 @@ const Home = () => {
               </Card.Body>
             </Card>
           ))}
+        : 
+        <div className='no-products'>Our Product is comming soon!</div>
+
       </div>
 
       <Paginator />
