@@ -47,8 +47,6 @@ const Products = () => {
 
   useEffect(() => {
     const results = products.filter((product) => {
-      console.log("product.name: ",product.name)
-      console.log("searchQuery: ", searchQuery)
       const matchesQuery = product.name
         .toLowerCase()
         .replace(/\s+/g, "")    

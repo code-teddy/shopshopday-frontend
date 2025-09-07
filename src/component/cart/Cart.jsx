@@ -11,6 +11,7 @@ import ProductImage from "../utils/ProductImage";
 import QuantityUpdater from "../utils/QuantityUpdater";
 import LoadSpinner from "../common/LoadSpinner";
 import { toast, ToastContainer } from "react-toastify";
+import emptyCartImage from "../../assets/images/emptyCart.jpeg";
 
 const Cart = () => {
     const { userId } = useParams();
@@ -73,7 +74,7 @@ const Cart = () => {
 
         {cart.items.length === 0 ? (
           <div style={{ height: "500px", textAlign: "center" }}>
-            <img src="/src/assets/images/emptyCart.jpeg" alt="empty cart" />
+            <img src={emptyCartImage} alt="empty cart" />
             <h1 className="mt-4 mb-4 cart-title">Your cart is empty</h1>
             <Link to={"/products"}>
               <button className="my-btn">Continue Shopping</button>
