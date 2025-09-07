@@ -14,9 +14,6 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const { product, quantity } = useSelector((state) => state.product);
-  const { isAdding } = useSelector((s) => s.cart);
-  // const successMessage = useSelector((state) => state.cart.successMessage);
-  // const errorMessage = useSelector((state) => state.cart.errorMessage);
   const productOutOfStock = product?.inventory <= 0;
 
   useEffect(() => {

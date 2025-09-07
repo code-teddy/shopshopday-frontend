@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../store/features/categorySlice";
+import { clearSelectedBrands } from "../../store/features/productSlice";
 import {
   setSearchQuery,
   setSelectedCategory,
@@ -13,7 +14,6 @@ const SearchBar = () => {
   const { categoryId } = useParams();
   const categories = useSelector((state) => state.category.categories);
   const isLoading = useSelector((state) => state.category.isLoading);
-
   const { searchQuery, selectedCategory } = useSelector(
     (state) => state.search
   );
@@ -38,6 +38,7 @@ const SearchBar = () => {
 
   const handleClearFilters = () => {
     dispatch(clearFilters());
+    dispatch(clearSelectedBrands());
     // navigate("/products");
   };
 

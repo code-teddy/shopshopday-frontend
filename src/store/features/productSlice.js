@@ -108,6 +108,9 @@ const productSlice = createSlice({
     addBrand: (state, action) => {
       state.brands.push(action.payload);
     },
+    clearSelectedBrands: (state) => {
+      state.selectedBrands = [];
+    }
   },
 
   extraReducers: (builder) => {
@@ -159,5 +162,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { filterByBrands, setQuantity, addBrand } = productSlice.actions;
+export const { filterByBrands, setQuantity, addBrand, clearSelectedBrands } = productSlice.actions;
 export default productSlice.reducer;

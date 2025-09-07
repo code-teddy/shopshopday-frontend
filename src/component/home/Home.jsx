@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Hero from "../hero/Hero";
 import Paginator from "../common/Paginator";
 import { Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProductImage from "../utils/ProductImage";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";

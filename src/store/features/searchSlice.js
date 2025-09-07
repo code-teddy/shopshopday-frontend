@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   searchQuery: "",
   selectedCategory: "all",
+  selectedBrands: [],
 };
 
 const searchSlice = createSlice({
