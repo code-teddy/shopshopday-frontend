@@ -14,7 +14,6 @@ import { clearFilters } from "../../store/features/searchSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const products = useSelector((state) => state.product.distinctProducts);
   const { searchQuery, selectedCategory } = useSelector(
@@ -36,6 +35,11 @@ const Home = () => {
 }, [dispatch]);
 
   useEffect(() => {
+    if (!products || !Array.isArray(products)) {
+      setFilteredProducts([]);
+      return;
+    }
+
     const results = products.filter((product) => {
       const matchesQuery = product.name
         .toLowerCase()
@@ -75,8 +79,8 @@ const Home = () => {
       <Hero />
       <div className='d-flex flex-wrap justify-content-center p-5 home-content'>
         <ToastContainer />
-        {currentProducts} ? 
-          {currentProducts.map((product) => (
+        {currentProducts && currentProducts.length > 0 ? (
+          currentProducts.map((product) => (
             <Card key={product.id} className='home-product-card'>
               <Link to={`/products/${product.name}`} className='link'>
                 <div className='image-container'>
@@ -85,26 +89,21 @@ const Home = () => {
                   )}
                 </div>
               </Link>
-
               <Card.Body>
                 <p className='product-description'>
                   {product.name} - {product.description}
                 </p>
                 <h4 className='price'>{product.price}</h4>
-
                 <StockStatus inventory={product.inventory} />
-
-                <Link
-                  to={`/products/${product.name}`}>
-                  {" "}
+                <Link to={`/products/${product.name}`}>
                   <button className="my-btn">More</button>
                 </Link>
               </Card.Body>
             </Card>
-          ))}
-        : 
-        <div className='no-products'>Our Product is comming soon!</div>
-
+          ))
+        ) : (
+          <div className='no-products'>Our Product is coming soon!</div>
+        )}
       </div>
 
       <Paginator />

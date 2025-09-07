@@ -14,19 +14,20 @@ const SearchBar = () => {
    const navigate = useNavigate();
   const { categoryId } = useParams();
   const categories = useSelector((state) => state.category.categories);
+  const isLoading = useSelector((state) => state.category.isLoading);
 
   const { searchQuery, selectedCategory } = useSelector(
     (state) => state.search
   );
 
   useEffect(() => {
-    if (categoryId && categories.length > 0) {
-      const seletedCategory = categories.find(
+    if (categoryId && categories && categories.length > 0) {
+      const selectedCategory = categories.find(
         (category) => category.id === parseInt(categoryId, 10)
       );
 
-      if (seletedCategory) {
-        dispatch(setSelectedCategory(seletedCategory.name));
+      if (selectedCategory) {
+        dispatch(setSelectedCategory(selectedCategory.name));
       } else {
         dispatch(setSelectedCategory("all"));
       }
@@ -57,11 +58,15 @@ const SearchBar = () => {
         onChange={handleCategoryChange}
         className='form-control-sm'>
         <option value='all'>All Category</option>
-        {categories.map((category, index) => (
-          <option key={index} value={category.name}>
-            {category.name}
-          </option>
-        ))}
+       {isLoading ? (
+  <option>Loading categories...</option>
+) : (
+  categories?.map((category) => (
+    <option key={category.id} value={category.name}>
+      {category.name}
+    </option>
+  ))
+)}
       </select>
 
       <input
