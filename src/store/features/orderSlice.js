@@ -59,7 +59,7 @@ const orderSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
-        state.orders = action.payload;
+        state.orders = action.payload ?? [];
         state.loading = false;
       });
   },

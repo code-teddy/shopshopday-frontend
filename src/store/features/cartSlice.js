@@ -30,7 +30,7 @@ export const getUserCart = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const response = await api.get(`/carts/user/${userId}/cart`);
-      return response.data.data;
+      return response.data.data ?? { items: [], cartId: null, totalAmount: 0 };
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -96,14 +96,20 @@ const cartSlice = createSlice({
         state.errorMessage = action.payload || action.error.message;
       })
       .addCase(getUserCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-        state.cartId = action.payload.cartId;
-        state.totalAmount = action.payload.totalAmount;
+        const payload = action.payload ?? {};
+        state.items = payload.items ?? [];
+        state.cartId = payload.cartId ?? null;
+        state.totalAmount = payload.totalAmount ?? 0;
         state.errorMessage = null;
         state.isLoading = false;
       })
+      .addCase(getUserCart.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getUserCart.rejected, (state, action) => {
-        state.errorMessage = action.error.message;
+        state.errorMessage = action.payload || action.error.message;
+        state.isLoading = false;  // ← add this line
+        state.items = [];         // ← ensure items is always an array
       })
       .addCase(updateQuantity.fulfilled, (state, action) => {
         const { itemId, newQuantity } = action.payload;

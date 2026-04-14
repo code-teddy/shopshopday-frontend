@@ -116,7 +116,7 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = action.payload ?? [];
         state.errorMessage = null;
         state.isLoading = false;
       })
@@ -124,19 +124,19 @@ const productSlice = createSlice({
         state.errorMessage = action.error.message;
       })
       .addCase(getAllBrands.fulfilled, (state, action) => {
-        state.brands = action.payload;
+        state.brands = action.payload ?? [];
         state.isLoading = false;
       })
       .addCase(getDistinctProductsByName.fulfilled, (state, action) => {
-        state.distinctProducts = action.payload;
+        state.distinctProducts = action.payload ?? [];
         state.isLoading = false;
       })
       .addCase(getProductById.fulfilled, (state, action) => {
-        state.product = action.payload;
+        state.product = action.payload ?? [];
         state.isLoading = false;
       })
       .addCase(getProductsByCategory.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = action.payload ?? [];
         state.errorMessage = null;
         state.isLoading = false;
       })
