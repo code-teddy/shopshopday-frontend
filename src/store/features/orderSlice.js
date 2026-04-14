@@ -3,18 +3,25 @@ import { api } from "../../component/services/api";
 
 export const placeOrder = createAsyncThunk(
   "order/placeOrder",
-  async ({userId}) => {
-    // userId : 28
-    const response = await api.post(`/orders/user/${userId}/place-order`);
-    return response.data;
+  async ({ userId }, { rejectWithValue }) => {
+    try {
+      const response = await api.post(`/orders/user/${userId}/place-order`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
 );
 
 export const fetchUserOrders = createAsyncThunk(
   "orders/fetchUserOrders",
-  async (userId) => {
-    const response = await api.get(`/orders/user/${userId}/orders`);
-    return response.data.data;
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/orders/user/${userId}/orders`);
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
 );
 
