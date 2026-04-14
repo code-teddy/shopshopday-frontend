@@ -150,7 +150,7 @@ const productSlice = createSlice({
         state.errorMessage = action.payload || action.error.message;
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
-        state.product = action.payload.data;
+        state.product = action.payload?.data ?? action.payload;
         state.errorMessage = null;
         state.isLoading = false;
       })
