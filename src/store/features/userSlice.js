@@ -12,16 +12,20 @@ export const getUserById = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
-  async ({ user, addresses }) => {
-    const payload = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-      addressList: addresses,
-    };
-    const response = await api.post("/users/add", payload);
-    return response.data;
+  async ({ user, addresses }, { rejectWithValue }) => {
+    try {
+      const payload = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password,
+        addressList: addresses,
+      };
+      const response = await api.post("/users/add", payload);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
 );
 
